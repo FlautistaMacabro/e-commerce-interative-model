@@ -2,8 +2,23 @@
   --header-container-margin: 30px;
   --header-container-padding: 8px;
   --box-shadow: 0 3px 3px rgba(0, 0, 0, 0.271);
-  --cards-container-margin-gap: 2.5vw;
+  --cards-grid-width: 70%;
   --card-height: 400px;
+  --search-input-width: 60%;
+  --image-width: 270px;
+
+  /* Colors */
+  --color-purple: rgb(48, 38, 95);
+  --color-gray: rgb(245, 245, 245);
+}
+
+::placeholder {
+  color: black;
+  opacity: 0.8; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12-18 */
+  color: black;
 }
 
 @font-face {
@@ -62,26 +77,31 @@ header {
 
 main {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   margin-top: 40px;
+  width: 100%;
+  justify-content: space-evenly;
 }
 
 #cards__container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: var(--cards-container-margin-gap);
-  margin-left: var(--cards-container-margin-gap);
+  max-width: 80%;
+  height: calc(var(--card-height) * 2.1);
+  width: var(--cards-grid-width);
+  grid-template-columns: max-content max-content max-content;
+  grid-template-rows: max-content max-content;
+  justify-content: space-around;
+  align-content: space-between;
 }
 
 .card {
-  max-width: 270px;
+  max-width: var(--image-width);
   height: var(--card-height);
   box-shadow: var(--box-shadow);
 }
 
 .card__image {
-  width: 100%;
+  width: var(--image-width);
   height: 180px;
 }
 
@@ -95,7 +115,7 @@ main {
 }
 
 .card__type {
-  background-color: rgb(48, 38, 95);
+  background-color: var(--color-purple);
   color: white;
   text-align: center;
   padding: 7px;
@@ -115,4 +135,38 @@ main {
 .card__add__btn {
   font-weight: 500;
   cursor: pointer;
+}
+
+#side__container {
+  display: flex;
+  flex-direction: column;
+  min-width: 20%;
+  width: calc(100% - var(--cards-grid-width));
+}
+
+#search__container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+#search__input {
+  width: var(--search-input-width);
+  height: 30px;
+  background-color: var(--color-gray);
+  border: none;
+  padding: 10px;
+  text-indent: 10px;
+  font-family: Inter;
+}
+
+#search__btn {
+  width: calc(100% - var(--search-input-width) - 10%);
+  background-color: var(--color-purple);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 14px;
+  font-family: Inter;
 }
