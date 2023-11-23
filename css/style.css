@@ -1,15 +1,19 @@
 :root{
-  --header-container-margin: 30px;
-  --header-container-padding: 8px;
-  --box-shadow: 0 3px 3px rgba(0, 0, 0, 0.271);
-  --cards-grid-width: 70%;
-  --card-height: 400px;
-  --search-input-width: 60%;
-  --image-width: 270px;
-
   /* Colors */
   --color-purple: rgb(48, 38, 95);
   --color-gray: rgb(245, 245, 245);
+  --box-shadow: 0 3px 3px rgba(0, 0, 0, 0.271);
+
+  /* Sizes */
+  --header-container-margin: 30px;
+  --header-container-padding: 8px;
+  --cards-grid-width: 70%;
+  --card-height: 400px;
+  --search-input-width: 60%;
+  --search-input-height: 30px;
+  --image-width: 270px;
+  --cart-container-height: 320px;
+  --cart-title-height: calc(var(--cart-container-height) / 6.4);
 }
 
 ::placeholder {
@@ -80,7 +84,6 @@ main {
   flex-direction: row;
   margin-top: 40px;
   width: 100%;
-  justify-content: space-evenly;
 }
 
 #cards__container {
@@ -140,19 +143,20 @@ main {
 #side__container {
   display: flex;
   flex-direction: column;
+  gap: var(--search-input-height);
   min-width: 20%;
-  width: calc(100% - var(--cards-grid-width));
+  width: calc(100% - var(--cards-grid-width) - 1%);
 }
 
 #search__container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
 }
 
 #search__input {
   width: var(--search-input-width);
-  height: 30px;
+  height: var(--search-input-height);
   background-color: var(--color-gray);
   border: none;
   padding: 10px;
@@ -161,6 +165,7 @@ main {
 }
 
 #search__btn {
+  max-width: 120px;
   width: calc(100% - var(--search-input-width) - 10%);
   background-color: var(--color-purple);
   color: white;
@@ -169,4 +174,41 @@ main {
   font-weight: 300;
   font-size: 14px;
   font-family: Inter;
+}
+
+#cart__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: var(--cart-container-height);
+  background-color: var(--color-gray);
+}
+
+#cart__title {
+  text-align: center;
+  line-height: var(--cart-title-height);
+  font-size: 18px;
+  font-weight: 600;
+  height: var(--cart-title-height);
+  background-color: var(--color-purple);
+  color: white;
+}
+
+#cart__itens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--cart-container-height) - var(--cart-title-height));
+}
+
+#cart__empty__msg {
+  font-size: 18px;
+  padding-bottom: 5px;
+  font-weight: 700;
+}
+
+#cart__add__msg {
+  font-size: 15px;
+  font-weight: 500;
 }
