@@ -1,7 +1,9 @@
 :root{
   /* Colors */
   --color-purple: rgb(48, 38, 95);
-  --color-gray: rgb(245, 245, 245);
+  --color-gray: rgb(130, 130, 130);
+  --color-light-gray: rgb(245, 245, 245);
+  --color-light-black: rgb(51, 51, 51);
   --box-shadow: 0 3px 3px rgba(0, 0, 0, 0.271);
 
   /* Sizes */
@@ -12,8 +14,13 @@
   --search-input-width: 60%;
   --search-input-height: 30px;
   --image-width: 270px;
-  --cart-container-height: 320px;
-  --cart-title-height: calc(var(--cart-container-height) / 6.4);
+  --image-height: 180px;
+  --cart-container-height: 420px;
+  --cart-title-height: calc(var(--cart-container-height) / 8.4);
+  --cart-itens-height: calc(var(--cart-container-height) - (var(--cart-title-height) * 3));
+  --cart-item-height: calc(var(--cart-itens-height) / 3);
+  --cart-item-space-between: calc(var(--cart-item-height) * 0.1111);
+  --cart-item-image-height: calc(var(--cart-item-height) - var(--cart-item-space-between) * 2);
 }
 
 ::placeholder {
@@ -23,6 +30,16 @@
 
 ::-ms-input-placeholder { /* Edge 12-18 */
   color: black;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  background: rgb(130, 130, 130); 
 }
 
 @font-face {
@@ -105,7 +122,7 @@ main {
 
 .card__image {
   width: var(--image-width);
-  height: 180px;
+  height: var(--image-height);
 }
 
 .card__details__container{
@@ -157,7 +174,7 @@ main {
 #search__input {
   width: var(--search-input-width);
   height: var(--search-input-height);
-  background-color: var(--color-gray);
+  background-color: var(--color-light-gray);
   border: none;
   padding: 10px;
   text-indent: 10px;
@@ -181,7 +198,6 @@ main {
   flex-direction: column;
   width: 100%;
   height: var(--cart-container-height);
-  background-color: var(--color-gray);
 }
 
 #cart__title {
@@ -198,8 +214,10 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: calc(var(--cart-container-height) - var(--cart-title-height));
+  /* justify-content: center; */
+  height: var(--cart-itens-height);
+  background-color: var(--color-light-gray);
+  overflow-y: auto;
 }
 
 #cart__empty__msg {
@@ -211,4 +229,60 @@ main {
 #cart__add__msg {
   font-size: 15px;
   font-weight: 500;
+}
+
+#cart__info__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 13px;
+  font-weight: 300;
+  gap: calc(var(--cart-title-height) * 0.3);
+  height: calc(var(--cart-title-height) * 1.5);
+  width: 100%;
+  background-color: var(--color-light-black);
+}
+
+.cart__info__subcontainer {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.cart__info__subcontainer > span:first-child {
+  font-weight: 400;
+}
+
+.cart__item__container {
+  display: flex;
+  width: 94.5%;
+  height: var(--cart-item-height);
+  font-size: 13px;
+  margin-top: var(--cart-item-space-between);
+  margin-bottom: var(--cart-item-space-between);
+  gap: var(--cart-item-space-between);
+}
+
+.cart__item__image {
+  max-width: calc(var(--image-width) * var(--cart-item-image-height) / var(--image-height));
+  height: var(--cart-item-image-height);
+}
+
+.cart__item__details__container {
+  display: flex;
+  max-height: 80px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart__item__remove__btn {
+  cursor: pointer;
+}
+
+/* Classes for dinamic CSS changes */
+
+.display__none {
+  display: none;
 }
