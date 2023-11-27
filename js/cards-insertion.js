@@ -1,4 +1,6 @@
-// ----------------------- FUNCTIONS -----------------------
+// -------------------------- FUNCTIONS -------------------------- //
+
+// -------------------------- Insertion --------------------------
 
 function cardCreation(cardInfo) {
   let card = document.createElement("div");
@@ -17,7 +19,7 @@ function cardCreation(cardInfo) {
   cardImage.alt = cardInfo.title;
   cardDetailsContainer.classList.add("card__details__container");
   cardType.classList.add("card__type");
-  cardType.innerText = cardsType;
+  cardType.innerText = cardInfo.type;
   cardTitle.classList.add("card__title");
   cardTitle.innerText = cardInfo.title;
   cardDescriptionContainer.classList.add("card__description__container");
@@ -48,8 +50,10 @@ function cardsInsertion() {
   });
 }
 
+// -------------------------- Search --------------------------
+
 function cardsSearch(event) {
-  let searchInput = event.target.previousElementSibling.value;
+  const searchInput = event.target.previousElementSibling.value;
   let cardsContainer = document.getElementById("cards__container");
   cardsContainer.replaceChildren();
   if(searchInput.length == 0) {
@@ -63,10 +67,42 @@ function cardsSearch(event) {
   });
 }
 
-// -------------------------- EVENT LISTENERS ON LOAD --------------------------
+// -------------------------- Menu --------------------------
+
+function menuIntialization() {
+  let menuItems = document.getElementsByClassName("header__menu__item");
+  menuItems[0].classList.add("active");
+  for (let i = 0; i < menuItems.length; i++)
+    menuItems[i].addEventListener("click", menuFilter);
+}
+
+function menuHighlight(menuItem) {
+  let menuItems = document.getElementsByClassName("header__menu__item");
+  for (let i = 0; i < menuItems.length; i++)
+    menuItems[i].classList.remove("active");
+  menuItem.classList.add("active");
+}
+
+function menuFilter(event) {
+  let filter = event.target.innerText;
+  let cardsContainer = document.getElementById("cards__container");
+  cardsContainer.replaceChildren();
+  menuHighlight(event.target);
+  if (filter == cardsTypes[0]){
+    cardsInsertion();
+    return;
+  }
+  cardsInfoList.forEach((cardInfo) => {
+    if (cardInfo.type == filter)
+      cardsContainer.appendChild(cardCreation(cardInfo));
+  });
+}
+
+// -------------------------- INITIALIZATION ON LOAD -------------------------- //
 
 window.addEventListener("load", () => {
   cardsInsertion();
   changeCartLayoutIfEmpty();
+  menuIntialization();
   document.getElementById("search__btn").addEventListener("click", cardsSearch);
 });

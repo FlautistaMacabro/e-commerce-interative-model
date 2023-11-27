@@ -98,16 +98,16 @@ header {
   font-size: 17px;
 }
 
-#header__menu li {
+.header__menu__item {
   transition: 300ms;
   cursor: pointer;
 }
 
-#header__menu li:first-child {
+.header__menu__item:hover {
   font-weight: bold;
 }
 
-#header__menu li:hover {
+.active {
   font-weight: bold;
 }
 
@@ -326,7 +326,7 @@ main {
   text-decoration: underline;
 }
 
-/* Classes for dinamic CSS changes */
+/* --------------------- Classes for dinamic CSS changes --------------------- */
 
 .display__none {
   display: none;
