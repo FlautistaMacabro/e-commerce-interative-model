@@ -50,12 +50,9 @@ function cardsInsertion() {
   });
 }
 
-// -------------------------- Search --------------------------
+// -------------------------- Search e Filter --------------------------
 
-function cardsSearch(event) {
-  const searchInput = event.target.previousElementSibling.value;
-  let cardsContainer = document.getElementById("cards__container");
-  cardsContainer.replaceChildren();
+function cardsSearch(cardsContainer, searchInput) {
   if(searchInput.length == 0) {
     cardsInsertion();
     return;
@@ -67,27 +64,7 @@ function cardsSearch(event) {
   });
 }
 
-// -------------------------- Menu --------------------------
-
-function menuIntialization() {
-  let menuItems = document.getElementsByClassName("header__menu__item");
-  menuItems[0].classList.add("active");
-  for (let i = 0; i < menuItems.length; i++)
-    menuItems[i].addEventListener("click", menuFilter);
-}
-
-function menuHighlight(menuItem) {
-  let menuItems = document.getElementsByClassName("header__menu__item");
-  for (let i = 0; i < menuItems.length; i++)
-    menuItems[i].classList.remove("active");
-  menuItem.classList.add("active");
-}
-
-function menuFilter(event) {
-  let filter = event.target.innerText;
-  let cardsContainer = document.getElementById("cards__container");
-  cardsContainer.replaceChildren();
-  menuHighlight(event.target);
+function menuFilter(cardsContainer, filter) {
   if (filter == cardsTypes[0]){
     cardsInsertion();
     return;
@@ -98,11 +75,50 @@ function menuFilter(event) {
   });
 }
 
+function cardsSearchAndFilter() {
+  const searchInput = document.getElementById("search__input").value;
+  let filter = document.getElementsByClassName("active")[0].innerText;
+  let cardsContainer = document.getElementById("cards__container");
+  cardsContainer.replaceChildren();
+  if(searchInput.length == 0){
+    menuFilter(cardsContainer, filter);
+    return;
+  }
+  if(filter == cardsTypes[0]){
+    cardsSearch(cardsContainer, searchInput);
+    return;
+  }
+  let regex = new RegExp(searchInput, "i"); 
+  cardsInfoList.forEach((cardInfo) => {
+    if (cardInfo.type == filter && cardInfo.title.search(regex) != -1)//) != -1)
+      cardsContainer.appendChild(cardCreation(cardInfo));
+  });
+}
+
+function menuHighlight(menuItem) {
+  let menuItems = document.getElementsByClassName("header__menu__item");
+  for (let i = 0; i < menuItems.length; i++)
+    menuItems[i].classList.remove("active");
+  menuItem.classList.add("active");
+}
+
+function menuHighlightAndFilter(event) {
+  menuHighlight(event.target);
+  cardsSearchAndFilter();
+}
+
+function menuIntialization() {
+  let menuItems = document.getElementsByClassName("header__menu__item");
+  menuItems[0].classList.add("active");
+  for (let i = 0; i < menuItems.length; i++)
+    menuItems[i].addEventListener("click", menuHighlightAndFilter);
+}
+
 // -------------------------- INITIALIZATION ON LOAD -------------------------- //
 
 window.addEventListener("load", () => {
   cardsInsertion();
   changeCartLayoutIfEmpty();
   menuIntialization();
-  document.getElementById("search__btn").addEventListener("click", cardsSearch);
+  document.getElementById("search__btn").addEventListener("click", cardsSearchAndFilter);
 });
