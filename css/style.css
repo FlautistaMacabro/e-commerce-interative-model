@@ -96,10 +96,15 @@ header {
 }
 
 #header__menu li {
+  transition: 300ms;
   cursor: pointer;
 }
 
 #header__menu li:first-child {
+  font-weight: bold;
+}
+
+#header__menu li:hover {
   font-weight: bold;
 }
 
