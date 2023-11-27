@@ -118,6 +118,12 @@ main {
   width: 100%;
 }
 
+#no__cards__container {
+  grid-column: 1 / 4;
+  text-align: center;
+  color: var(--color-light-black);
+}
+
 #cards__container {
   display: grid;
   max-width: 80%;

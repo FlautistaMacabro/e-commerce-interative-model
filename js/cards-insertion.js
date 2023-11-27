@@ -52,6 +52,16 @@ function cardsInsertion() {
 
 // -------------------------- Search e Filter --------------------------
 
+function checkIfThereIsAnyCard() {
+  let cardsContainer = document.getElementById("cards__container");
+  if (cardsContainer.childElementCount > 0)
+    return;
+  let noCardMsg = `<div id="no__cards__container">
+                      <h1> Não há nenhum produto correspondente à busca realizada </h1>
+                   </div>`;
+  cardsContainer.insertAdjacentHTML("afterbegin", noCardMsg);
+}
+
 function cardsSearch(cardsContainer, searchInput) {
   if(searchInput.length == 0) {
     cardsInsertion();
@@ -62,6 +72,7 @@ function cardsSearch(cardsContainer, searchInput) {
     if (cardInfo.title.search(regex) != -1)//) != -1)
       cardsContainer.appendChild(cardCreation(cardInfo));
   });
+  checkIfThereIsAnyCard();
 }
 
 function menuFilter(cardsContainer, filter) {
@@ -73,6 +84,7 @@ function menuFilter(cardsContainer, filter) {
     if (cardInfo.type == filter)
       cardsContainer.appendChild(cardCreation(cardInfo));
   });
+  checkIfThereIsAnyCard();
 }
 
 function cardsSearchAndFilter() {
@@ -93,6 +105,7 @@ function cardsSearchAndFilter() {
     if (cardInfo.type == filter && cardInfo.title.search(regex) != -1)//) != -1)
       cardsContainer.appendChild(cardCreation(cardInfo));
   });
+  checkIfThereIsAnyCard();
 }
 
 function menuHighlight(menuItem) {
